@@ -21,22 +21,18 @@ function App() {
   function handleTaskDelete(id) {
     setTasks(Tasks.filter((task) => task.id !== id));
   }
-  function handleCategoryChange(e) {
-    setSelectedCategory(e.target.value);
-  }
-  const tasksToDisplay = Tasks.filter((task) => {
-    if (selectedCategory === "All") {
-      return true;
-    }
-    return task.category == selectedCategory;
-  });
+ 
+  const tasksToDisplay = Tasks.filter(
+    (task) => selectedCategory === 'All' || task.category === selectedCategory
+  )
 
   return (
     <div className="App">
       <h2>My tasks</h2>
       <CategoryFilter
         categories={CATEGORIES}
-        onCategoryChange={handleCategoryChange}
+        onSelectCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
       />
       <NewTaskForm categories={CATEGORIES} getNextId={getNextId} onTaskFormSubmit={handleNewTasks}/>
       <TaskList Tasks={tasksToDisplay} deleteTask={handleTaskDelete} />

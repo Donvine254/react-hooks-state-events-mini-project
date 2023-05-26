@@ -1,21 +1,12 @@
 import React from "react";
+import Task from "./Task";
 
 function TaskList({ Tasks, deleteTask }) {
+  const AllTasks = Tasks.map((task)=>
+    <Task onTaskDelete={()=>deleteTask(task.id)}key={task.text} category={task.category} text={task.text}/>)
   return (
     <div className="tasks">
-      {Tasks.map((task) => {
-        return (
-          <div className="task" key={task.id}>
-            <p className="text">
-              {task.text}
-              <span className="label">{task.category}</span>
-            </p>
-            <button className="delete"onClick={() => deleteTask(task.id)}>
-              Delete
-            </button>
-          </div>
-        );
-      })}
+      {AllTasks}
     </div>
   );
 }

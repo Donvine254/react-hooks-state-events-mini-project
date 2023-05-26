@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 
 function NewTaskForm({ categories, onTaskFormSubmit, getNextId }) {
-  const [itemCategory, setItemCategory] = useState("All")
-  const [itemDetails, setItemDetails] = useState("")
+  const [category, setCategory] = useState("All")
+  const [text, setText] = useState("")
 
   function handleCategoryChange(event) {
-    setItemCategory(event.target.value);
+    setCategory(event.target.value);
   }
   function handleDetailsChange(event) {
-    setItemDetails(event.target.value);
+    setText(event.target.value);
   }
   function handleSubmit(e){
     e.preventDefault();
     const formData={
       id:getNextId(),
-      text:itemDetails,
-      category:itemCategory,
+      text:text,
+      category:category,
     }
     onTaskFormSubmit(formData)
-    setItemCategory("All")
-    setItemDetails("")
+    setCategory("All")
+    setText("")
   }
 
   return (
     <form className="new-task-form" onSubmit={handleSubmit}>
       <label>
         Details
-        <input type="text" name="text" value={itemDetails} onChange={handleDetailsChange} />
+        <input type="text" name="text" value={text} onChange={handleDetailsChange} />
       </label>
       <label>
         Category
-        <select name="category"value={itemCategory} onChange={handleCategoryChange}>
+        <select name="category"value={category} onChange={handleCategoryChange}>
           {categories.map((category) => (
             <option value={category} key={category}>
               {category}
